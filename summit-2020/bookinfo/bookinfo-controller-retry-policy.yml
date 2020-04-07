@@ -1,0 +1,212 @@
+---
+apiVersion: appmesh.k8s.aws/v1beta1
+kind: Mesh
+metadata:
+  name: appmesh-workshop
+  namespace: bookinfo
+  
+---
+apiVersion: appmesh.k8s.aws/v1beta1
+kind: VirtualService
+metadata:
+  name: productpage
+  namespace: bookinfo
+spec:
+  meshName: appmesh-workshop
+  routes:
+    - name: productpage-route
+      http:
+        match:
+          prefix: /
+        action:
+          weightedTargets:
+            - virtualNodeName: productpage-v1
+              weight: 1
+
+---
+apiVersion: appmesh.k8s.aws/v1beta1
+kind: VirtualService
+metadata:
+  name: reviews
+  namespace: bookinfo
+spec:
+  meshName: appmesh-workshop
+  routes:
+    - name: reviews-route
+      http:
+        match:
+          prefix: /
+        action:
+          weightedTargets:
+            #- virtualNodeName: reviews-v1
+            #  weight: 1
+            - virtualNodeName: reviews-v2
+              weight: 1
+            - virtualNodeName: reviews-v3
+              weight: 1 
+
+---
+apiVersion: appmesh.k8s.aws/v1beta1
+kind: VirtualService
+metadata:
+  name: ratings
+  namespace: bookinfo
+spec:
+  meshName: appmesh-workshop
+  routes:
+    - name: ratings-route
+      http:
+        match:
+          prefix: /
+        action:
+          weightedTargets:
+            - virtualNodeName: ratings-v1
+              weight: 1
+        retryPolicy:
+          maxRetries: 3
+          perRetryTimeoutMillis: 2000
+          httpRetryEvents:
+            - server-error
+            
+---
+apiVersion: appmesh.k8s.aws/v1beta1
+kind: VirtualService
+metadata:
+  name: details
+  namespace: bookinfo
+spec:
+  meshName: appmesh-workshop
+  routes:
+    - name: details-route
+      http:
+        match:
+          prefix: /
+        action:
+          weightedTargets:
+            - virtualNodeName: details-v1
+              weight: 1
+
+---
+apiVersion: appmesh.k8s.aws/v1beta1
+kind: VirtualNode
+metadata:
+  name: productpage-v1
+  namespace: bookinfo
+spec:
+  meshName: appmesh-workshop
+  listeners:
+    - portMapping:
+        port: 9080
+        protocol: http
+  backends:
+    - virtualService:
+        virtualServiceName: details
+    - virtualService:
+        virtualServiceName: reviews
+#    - virtualService:
+#        virtualServiceName: ratings
+  serviceDiscovery:
+    dns:
+      hostName: productpage.bookinfo.svc.cluster.local
+
+---
+apiVersion: appmesh.k8s.aws/v1beta1
+kind: VirtualNode
+metadata:
+  name: reviews
+  namespace: bookinfo
+spec:
+  meshName: appmesh-workshop
+  listeners:
+    - portMapping:
+        port: 9080
+        protocol: http
+  serviceDiscovery:
+    dns:
+      hostName: reviews.bookinfo.svc.cluster.local
+
+---
+apiVersion: appmesh.k8s.aws/v1beta1
+kind: VirtualNode
+metadata:
+  name: reviews-v1
+  namespace: bookinfo
+spec:
+  meshName: appmesh-workshop
+  listeners:
+    - portMapping:
+        port: 9080
+        protocol: http
+  serviceDiscovery:
+    dns:
+      hostName: reviews-v1.bookinfo.svc.cluster.local
+
+---
+apiVersion: appmesh.k8s.aws/v1beta1
+kind: VirtualNode
+metadata:
+  name: reviews-v2
+  namespace: bookinfo
+spec:
+  meshName: appmesh-workshop
+  listeners:
+    - portMapping:
+        port: 9080
+        protocol: http
+  backends:
+    - virtualService:
+        virtualServiceName: ratings
+  serviceDiscovery:
+    dns:
+      hostName: reviews-v2.bookinfo.svc.cluster.local
+
+---
+apiVersion: appmesh.k8s.aws/v1beta1
+kind: VirtualNode
+metadata:
+  name: reviews-v3
+  namespace: bookinfo
+spec:
+  meshName: appmesh-workshop
+  listeners:
+    - portMapping:
+        port: 9080
+        protocol: http
+  backends:
+    - virtualService:
+        virtualServiceName: ratings
+  serviceDiscovery:
+    dns:
+      hostName: reviews-v3.bookinfo.svc.cluster.local
+
+---
+apiVersion: appmesh.k8s.aws/v1beta1
+kind: VirtualNode
+metadata:
+  name: ratings-v1
+  namespace: bookinfo
+spec:
+  meshName: appmesh-workshop
+  listeners:
+    - portMapping:
+        port: 9080
+        protocol: http
+  serviceDiscovery:
+    dns:
+      hostName: ratings.bookinfo.svc.cluster.local
+
+---
+apiVersion: appmesh.k8s.aws/v1beta1
+kind: VirtualNode
+metadata:
+  name: details-v1
+  namespace: bookinfo
+spec:
+  meshName: appmesh-workshop
+  listeners:
+    - portMapping:
+        port: 9080
+        protocol: http
+  serviceDiscovery:
+    dns:
+      hostName: details.bookinfo.svc.cluster.local
