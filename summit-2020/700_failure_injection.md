@@ -101,7 +101,7 @@ Book Info 애플리케이션의 Ratings 서비스에 Litmus를 사용해서 네�
 * 평점 정보를 가져오는 `ratings-v1 서비스에 네트워크 레이턴시를 주입`할 예정입니다.
 
   * 네트워크 지연이 발생하는 ratings-v1과 직접적으로 연결되는 `reviews-v3 Pod의 Port를 포워딩합니다.`
-  * 트래픽 및 실패 주입을 모니터링 하기 위해, 아래와 같이 3개의 터미널을 각각 열어서 작업을 실행합니다.
+  * 트래픽 및 실패 주입을 모니터링 하기 위해, 아래와 같이 3개의 터미널을 각각 열어서 작업을 진행합니다.
   * `reviews-v3 Pod의 Port를 포워딩한 로컬 포트에 트래픽을 주입`하고 네트워크 지연으로 인해 문제가 발생하는지 살펴봅니다.
      
   * 터미널 1
@@ -112,7 +112,7 @@ Book Info 애플리케이션의 Ratings 서비스에 Litmus를 사용해서 네�
     ```
     <img width="1043" alt="Screen Shot 2020-04-03 at 6 29 20 PM" src="https://user-images.githubusercontent.com/6407492/78345943-4d181b80-75d9-11ea-991a-d48d845d3b6c.png">  
          
-    * review-v3의 Port를 로컬 Port로 포워딩합니다.
+    * 로컬 Port를 reviews-v3의 Port로 포워딩합니다.
       
     ```bash
     kubectl -n bookinfo port-forward reviews-v3-686fdbf69b-vtghr 8080:9080
