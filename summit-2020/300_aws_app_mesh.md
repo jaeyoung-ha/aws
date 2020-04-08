@@ -29,18 +29,16 @@
    * Container Insights를 활성화 합니다.   
    `Seoul(ap-northeast-2)` 리전이 아닌 경우, 리전코드를 변경합니다.
      
-   (github page를 통해 가이드를 보시는 경우)
-    ```bash
-    curl https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch-container-insights/master/k8s-yaml-templates/quickstart/cwagent-fluentd-quickstart.yaml | sed "s/\{\{cluster_name\}\}/eksworkshop-eksctl/;s/\{\{region_name\}\}/ap-northeast-2/" | kubectl apply -f -
-    ```  
-
-   (github md를 통해 가이드를 보시는 경우)
-     
     ```bash
     curl https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch-container-insights/master/k8s-yaml-templates/quickstart/cwagent-fluentd-quickstart.yaml | sed "s/{{cluster_name}}/eksworkshop-eksctl/;s/{{region_name}}/ap-northeast-2/" | kubectl apply -f -
     ```    
-
+    github page로 볼 경우, 누락 문자가 있어서 아래 그림을 추가합니다.
+    <img width="743" alt="Screen Shot 2020-04-08 at 9 48 11 AM" src="https://user-images.githubusercontent.com/6407492/78732654-231a7c80-797e-11ea-89b1-a72c92278655.png">
+    
 ### 3.2. App Mesh Integration 설정
+
+sed "s/{{cluster_name}}/eksworkshop-eksctl/;s/{{region_name}}/ap-northeast-2/" | kubectl apply -f -
+
 
 AWS App Mesh는 마이크로서비스 간의 네트워크 트래픽을 제어하고 가시성을 제공합니다.
 Control Plane을 Managed Service로 제공하고, Data Plane에 배포된 Envoy sidecar proxy를 통해 사용자의 설정을 즉시 반영합니다.
