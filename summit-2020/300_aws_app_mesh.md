@@ -30,9 +30,9 @@
    (`Seoul(ap-northeast-2)` 리전이 아닌 경우, 리전코드를 변경합니다.)   
    
     ```bash
-    curl https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch-container-insights/master/k8s-yaml-templates/quickstart/cwagent-fluentd-quickstart.yaml | sed "s/\{\{cluster_name\}\}/eksworkshop-eksctl/;s/{{region_name}}/ap-northeast-2/" | kubectl apply -f -
+    curl https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch-container-insights/master/k8s-yaml-templates/quickstart/cwagent-fluentd-quickstart.yaml | sed "s/{{cluster_name}}/eksworkshop-eksctl/;s/{{region_name}}/ap-northeast-2/" | kubectl apply -f -
     ```
-     * 위 sed 커맨드 부분이 아래와 같이 을 꼭 확인해 주세요.
+     
 
 ### 3.2. App Mesh Integration 설정
 
