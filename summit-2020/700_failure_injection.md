@@ -336,6 +336,9 @@ Book Info 애플리케이션의 Ratings 서비스에 Litmus를 사용해서 네�
 [![데모 영상](https://dykqnb76krm40.cloudfront.net/summit-2020/3.appmesh.png)](https://dykqnb76krm40.cloudfront.net/summit-2020/3.appmesh.mp4)   
 
 ---
+`※ 실습 가이드의 원본은` [github](https://github.com/openzon/aws/tree/master/summit-2020)`에 있습니다. 링크도 같이 참조해 주세요`   
+  `github markdown -> github page html 전환 중에, 글자가 누락되거나 스타일 구성에 오류가 있을 수 있으니 양해 부탁드립니다.`
+  
 ### Table of Contents
 [Chaos Engineering을 활용한 마이크로서비스 안정성 개선하기](README.md)
 1. [Amazon EKS 시작하기](100_amazon_eks.md)

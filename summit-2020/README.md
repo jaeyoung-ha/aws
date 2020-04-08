@@ -70,3 +70,7 @@ App Mesh의 Retry Policy를 적용해서 복원력을 개선하는 방법을 알
 
 실습을 통해 생성한 Book Info 애플리케이션, 서비스 메시, EKS 클러스터를 삭제합니다.
 
+
+---
+`※ 실습 가이드의 원본은` [github](https://github.com/openzon/aws/tree/master/summit-2020)`에 있습니다. 링크도 같이 참조해 주세요`   
+  `github markdown -> github page html 전환 중에, 글자가 누락되거나 스타일 구성에 오류가 있을 수 있으니 양해 부탁드립니다.`
