@@ -11,8 +11,10 @@ Jenkins를 위한 Deployment, Service, Ingress를 배포합니다.
   git clone https://github.com/openzon/jenkins-on-eks.git
   ```
 
-- 아래 링크의 가이드를 참조해서 EBS CSI Driver를 배포합니다.   
-  - [Amazon EBS CSI Driver 배포하기](https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/ebs-csi.html)  
+- 아래 링크의 가이드를 참조해서 EBS CSI Driver를 배포합니다.  
+
+  - [Amazon EBS CSI Driver 배포하기](https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/ebs-csi.html) 
+  
 
 - Jenkins Namespace를 생성합니다.
 
