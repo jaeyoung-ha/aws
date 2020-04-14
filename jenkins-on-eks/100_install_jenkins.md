@@ -5,16 +5,19 @@ EBS볼륨을 정적 또는 동적으로 바인딩해서 Jenkins를 설치합니�
 EBS CSI Driver를 사용해서 Storage Class, Persistent Volume, Persistent Volume Claim을 생성합니다.    
 Jenkins를 위한 Deployment, Service, Ingress를 배포합니다.   
 
+Jenkins를 설치하기 전에, 준비작업 필요합니다.  
+
 - 본 실습에 필요한 파일들을 github repository에서 clone합니다.
 
   ```
   git clone https://github.com/openzon/jenkins-on-eks.git
   ```
 
-- 아래 링크의 가이드를 참조해서 EBS CSI Driver를 배포합니다.  
+- 아래 링크의 가이드를 참조해서 **EBS CSI Driver를 배포합니다.**  
+  - [Amazon EBS CSI Driver 배포하기](https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/ebs-csi.html)    
 
-  - [Amazon EBS CSI Driver 배포하기](https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/ebs-csi.html) 
-  
+
+준비 작업을 완료하였고, Kubernetes 리소스를 배포해서 Jenkins를 설치합니다.   
 
 - Jenkins Namespace를 생성합니다.
 
