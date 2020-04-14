@@ -26,7 +26,7 @@ eksctl를 사용해서 클러스터를 생성합니다.
 <img width="1437" alt="Screen Shot 2020-04-03 at 10 14 11 AM" src="https://user-images.githubusercontent.com/6407492/78314113-eb818e00-7593-11ea-85b3-64535aaa0ea0.png">
   
 * 아래 링크로 이동해서 Cloud9 workspace를 생성할 준비를 합니다.
-  * 이번 실습에서는 `Seoul(ap-northeast-2)` 리전에서 Cloud9 workspace를 생성합니다.
+  * 본 실습에서는 **Seoul(ap-northeast-2)** 리전에서 Cloud9 workspace를 생성합니다.
   * [https://ap-northeast-2.console.aws.amazon.com/cloud9/home?region=ap-northeast-2](https://ap-northeast-2.console.aws.amazon.com/cloud9/home?region=ap-northeast-2)
   
 * Cloud9 workspace를 생성합니다.
@@ -51,7 +51,7 @@ eksctl를 사용해서 클러스터를 생성합니다.
   * [https://eksworkshop.com/030_eksctl/prerequisites/](https://eksworkshop.com/030_eksctl/prerequisites/)
   
 * eksctl를 사용해서 EKS 클러스터를 생성합니다. (약 15분 소요)
-  * 클러스터 이름 : `eksworkshop-eksctl`  
+  * 클러스터 이름 : **eksworkshop-eksctl** 
 
   ```bash
   # 클러스터 이름을 변경하면, 이후 작업에 영향이 있을 수 있습니다. 
@@ -65,7 +65,7 @@ eksctl를 사용해서 클러스터를 생성합니다.
   kubectl get nodes # if we see our 3 nodes, we know we have authenticated correctly
   ```
   
-* Node IAM Role Name을 Export해서 `.bash_profile`에 추가합니다. 
+* Node IAM Role Name을 Export해서 **.bash_profile**에 추가합니다. 
   * Node IAM Role에 정책(Policy)을 추가할 때, 아래 설정이 사용됩니다.  
   
   ```bash

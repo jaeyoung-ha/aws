@@ -373,7 +373,7 @@
     
 ### 2.3. 생성한 Ingress 정보를 확인합니다.
 
-* Ingress URL을 확인하고 브라우저를 통해 접속합니다. (ALB 활성화에 1~2분 정도가 소요됩니다.)
+* Ingress URL을 확인하고 브라우저를 통해 접속합니다. (ALB 활성화에 2~3분 정도 소요됩니다.)
 
     ```bash 
     kubectl get ingress -n bookinfo 

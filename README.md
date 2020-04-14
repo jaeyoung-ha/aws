@@ -32,3 +32,4 @@ CDK(Cloud Development Kit)을 사용하면, CloudFormation을 보다 쉽게 사�
 
 ---
 [Chaos Engineering을 활용한 마이크로서비스 안정성 개선하기](summit-2020)
+[Amazon EKS에서 Jenkins로 분산 빌드 환경 구성하기](jenkins-on-eks)

@@ -7,14 +7,14 @@ Book Info 애플리케이션의 Ratings 서비스에 Litmus를 사용해서 네�
 
 ### 7.1. Litmus를 통해 실패 주입하기
 
-* Litmus Operator를 설치합니다. (6번 Litmus 실습에서 이미 설치했다면, 스킵해도 됩니다.)
+* Litmus Operator를 설치합니다. (*6번 Litmus 실습에서 이미 설치했다면, 스킵해도 됩니다.*)
 
     ```bash
     kubectl apply -f https://litmuschaos.github.io/pages/litmus-operator-v1.2.0.yaml
     ```
     <img width="1043" alt="Screen Shot 2020-04-03 at 6 23 04 PM" src="https://user-images.githubusercontent.com/6407492/78345019-2d342800-75d8-11ea-89b6-3df6ffd356af.png"> 
      
-* 설치된 Litmus 리소스를 확인합니다. (6번 Litmus 실습에서 이미 설치했다면, 스킵해도 됩니다.)
+* 설치된 Litmus 리소스를 확인합니다. (*6번 Litmus 실습에서 이미 설치했다면, 스킵해도 됩니다.*)
     
     ```bash
     kubectl get pods -n litmus
@@ -98,11 +98,11 @@ Book Info 애플리케이션의 Ratings 서비스에 Litmus를 사용해서 네�
     ```
     <img width="1042" alt="Screen Shot 2020-04-03 at 6 28 58 PM" src="https://user-images.githubusercontent.com/6407492/78345935-4ab5c180-75d9-11ea-81b7-d7a0a96ae0c5.png">  
      
-* 평점 정보를 가져오는 `ratings-v1 서비스에 네트워크 레이턴시를 주입`할 예정입니다.
+* 평점 정보를 가져오는 **ratings-v1 서비스에 네트워크 레이턴시를 주입**할 예정입니다.
 
-  * 네트워크 지연이 발생하는 ratings-v1과 직접적으로 연결되는 `reviews-v3 Pod의 Port를 포워딩합니다.`
+  * 네트워크 지연이 발생하는 ratings-v1과 직접적으로 연결되는 **reviews-v3 Pod의 Port를 포워딩합니다.**
   * 트래픽 및 실패 주입을 모니터링 하기 위해, 아래와 같이 3개의 터미널을 각각 열어서 작업을 진행합니다.
-  * `reviews-v3 Pod의 Port를 포워딩한 로컬 포트에 트래픽을 주입`하고 네트워크 지연으로 인해 문제가 발생하는지 살펴봅니다.
+  * **reviews-v3 Pod의 Port를 포워딩한 로컬 포트에 트래픽을 주입**하고 네트워크 지연으로 인해 문제가 발생하는지 살펴봅니다.
      
   * 터미널 1
     * Port 포워딩할 reviews-v3 Pod의 Name 정보를 조회합니다.
@@ -138,7 +138,7 @@ Book Info 애플리케이션의 Ratings 서비스에 Litmus를 사용해서 네�
 * Pod Network Latency Chaos 실험을 실행합니다.
 
   * ratings Pod에 네트워크 레이턴시를 주입할 Litmus Chaos Pod을 배포합니다.
-  * Litmus Chaos Pod의 `실행 시간은 30초`이고, ratings Pod에서 `3초의 네트워크 지연`이 발생합니다.
+  * Litmus Chaos Pod의 실행 시간은 30초이고, ratings Pod에서 **3초의 네트워크 지연**이 발생합니다.
     
     ```bash
     kubectl -n bookinfo apply -f https://raw.githubusercontent.com/openzon/aws/master/summit-2020/bookinfo/bookinfo-chaos-network-latency.yaml
@@ -203,8 +203,8 @@ Book Info 애플리케이션의 Ratings 서비스에 Litmus를 사용해서 네�
 * Book Info 애플리케이션에서 500 서버 에러가 발생하는 것을 확인합니다.
   
   * ratings Pod에 3초의 네트워크 지연이 발생하는데, 왜 500 에러가 발생할까요?
-  * `reviews-v3에서 2.5초 이상의 지연이 발생하면, 타임아웃 처리`를 하도록 구현되었기 때문입니다.
-  * reviews-v3의 백엔드, `ratings-v1에서의 3초의 지연`으로 `reviews-v3에서 타임아웃 에러`가 발생합니다.
+  * **reviews-v3에서 2.5초 이상의 지연이 발생하면, 타임아웃 처리**를 하도록 구현되었기 때문입니다.
+  * reviews-v3의 백엔드, **ratings-v1에서의 3초의 지연**으로 **reviews-v3에서 타임아웃 에러**가 발생합니다.
     
   * 터미널 3
       
@@ -224,8 +224,8 @@ Book Info 애플리케이션의 Ratings 서비스에 Litmus를 사용해서 네�
 
 * [App Mesh의 재시도 정책(Retry Policy)](https://github.com/aws/aws-app-mesh-examples/tree/master/blogs/http-retry-policy)을 적용해 봅니다.   
     
-    * 아래는 `ratings-v1으로 유입되는 트래픽를 제어`를 할 수 있는 Virtual Service입니다.  
-    * `2초 간격으로 3번 재시도`하는 정책을 설정합니다.  
+    * 아래는 **ratings-v1으로 유입되는 트래픽를 제어**를 할 수 있는 Virtual Service입니다.  
+    * **2초 간격으로 3번 재시도**하는 정책을 설정합니다.  
     
     ```yaml
    apiVersion: appmesh.k8s.aws/v1beta1
@@ -280,7 +280,7 @@ Book Info 애플리케이션의 Ratings 서비스에 Litmus를 사용해서 네�
 * Pod Network Latency Chaos 실험을 실행합니다.
 
   * ratings Pod에 네트워크 레이턴시를 주입할 Litmus Chaos Pod을 배포합니다.
-  * Litmus Chaos Pod의 `실행 시간은 30초`이고, ratings Pod에서 `3초의 네트워크 지연`이 발생합니다.
+  * Litmus Chaos Pod의 실행 시간은 30초이고, ratings Pod에서 **3초의 네트워크 지연**이 발생합니다.
   
     ```bash
     kubectl -n bookinfo apply -f https://raw.githubusercontent.com/openzon/aws/master/summit-2020/bookinfo/bookinfo-chaos-network-latency.yaml
@@ -297,8 +297,8 @@ Book Info 애플리케이션의 Ratings 서비스에 Litmus를 사용해서 네�
     
 * Book Info 애플리케이션이 정상적으로 실행되는 것을 확인합니다.
 
-  * 이번에는 `왜 reviews-v3에서 타임아웃 에러가 발생하지 않을까요?`
-  * reviews-v3의 백엔드, ratings-v1에서의 3초 지연으로 reviews-v3에서 타임아웃 에러가 발생해도 `App Mesh 정책에 따라 재시도를 수행하여 정상적으로 요청을 처리합니다.`
+  * 이번에는 **왜 reviews-v3에서 타임아웃 에러가 발생하지 않을까요?**
+  * reviews-v3의 백엔드, ratings-v1에서의 3초 지연으로 reviews-v3에서 타임아웃 에러가 발생해도 **App Mesh 정책에 따라 재시도를 수행하여 정상적으로 요청을 처리합니다.**
     
   * 터미널 3
       

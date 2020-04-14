@@ -27,14 +27,14 @@
     ```
 
    * Container Insights를 활성화 합니다.   
-   `Seoul(ap-northeast-2)` 리전이 아닌 경우, 리전코드를 변경합니다.
+   **Seoul(ap-northeast-2)** 리전이 아닌 경우, 리전코드를 변경합니다.
      
-    ```bash
-    curl https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch-container-insights/master/k8s-yaml-templates/quickstart/cwagent-fluentd-quickstart.yaml | sed "s/{{cluster_name}}/eksworkshop-eksctl/;s/{{region_name}}/ap-northeast-2/" | kubectl apply -f -
-    ```    
+      ```bash
+      curl https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch-container-insights/master/k8s-yaml-templates/quickstart/cwagent-fluentd-quickstart.yaml | sed "s/{{cluster_name}}/eksworkshop-eksctl/;s/{{region_name}}/ap-northeast-2/" | kubectl apply -f -
+      ```    
     
-    `※ github page로 가이드를 보실 경우, sed 커맨드 뒷 부분을 아래와 같이 수정해 주세요.`
-    <img width="820" alt="Screen Shot 2020-04-08 at 9 48 11 AM" src="https://user-images.githubusercontent.com/6407492/78732654-231a7c80-797e-11ea-89b1-a72c92278655.png">
+      **※ github page로 가이드를 보실 경우, sed 커맨드 뒷 부분을 아래와 같이 수정해 주세요.**
+      <img width="820" alt="Screen Shot 2020-04-08 at 9 48 11 AM" src="https://user-images.githubusercontent.com/6407492/78732654-231a7c80-797e-11ea-89b1-a72c92278655.png">
     
 ### 3.2. App Mesh Integration 설정
 

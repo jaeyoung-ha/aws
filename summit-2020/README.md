@@ -11,7 +11,7 @@
   * [Gremlin](https://www.gremlin.com), [Litmus](https://litmuschaos.io)와 같은 Chaos Engineering 도구를 사용해서 마이크로서비스에 실패를 주입합니다. 
   * AWS App Mesh의 [Retry Policy](https://aws.amazon.com/ko/about-aws/whats-new/2019/09/aws-app-mesh-now-supports-retry-policies/)를 설정해서 복원력을 개선하는 방법을 알아봅니다.
  
-본 실습 및 테스트는 `Seoul(ap-northeast-2)` region에서 진행하였습니다.
+본 실습 및 테스트는 **Seoul(ap-northeast-2)** region에서 진행하였습니다.
 
 
 ## 1. [Amazon EKS 시작하기](100_amazon_eks.md)
