@@ -17,6 +17,7 @@ Jenkins를 위한 Deployment, Service, Ingress를 배포합니다.
   ```bash
   kubectl create namespace jenkins
   ```
+  
 - Service Account, Role, RoleBinding, ClusterRole, ClusterRoleBinding를 생성합니다.
   ```bash
   cd ~/environment/jenkins-on-eks
@@ -29,6 +30,7 @@ Jenkins를 위한 Deployment, Service, Ingress를 배포합니다.
     kind: ServiceAccount
     metadata:
       name: jenkins
+      
     ---
     kind: Role
     apiVersion: rbac.authorization.k8s.io/v1
@@ -101,10 +103,12 @@ Jenkins를 위한 Deployment, Service, Ingress를 배포합니다.
       name: jenkins
       namespace: jenkins  
     ```
+    
 - **Static Volume을 사용할 경우,** EBS Volume을 생성합니다. 또는 사용할 기존 Volume을 선택합니다.
   ```bash
   aws ec2 create-volume --availability-zone=ap-northeast-2a --size=50 --volume-type=gp2 
   ```
+  
   - EBS Volume 생성 결과는 아래와 비슷합니다. Persistent Volume을 생성할 때, VolumeId가 필요합니다.
     ```json
     {
@@ -121,6 +125,7 @@ Jenkins를 위한 Deployment, Service, Ingress를 배포합니다.
         "MultiAttachEnabled": false
     }
     ```
+    
 - **Dynamic Volume을 사용할 경우,** ***이 단계를 건너뛰고 Storage Class 생성 단계로 넘어갑니다.***
 
 - Storage Class를 생성합니다.
@@ -128,21 +133,24 @@ Jenkins를 위한 Deployment, Service, Ingress를 배포합니다.
   cd ~/environment/jenkins-on-eks
   kubectl apply -f jenkins/jenkins.sc.yaml
   ```
+  
   - jenkins.sc.yaml  
-  ```yaml
-  kind: StorageClass
-  apiVersion: storage.k8s.io/v1
-  metadata:
-    name: jenkins
-  provisioner: ebs.csi.aws.com
-  volumeBindingMode: WaitForFirstConsumer
-  reclaimPolicy: Retain
-  ```
+    ```yaml
+    kind: StorageClass
+    apiVersion: storage.k8s.io/v1
+    metadata:
+      name: jenkins
+    provisioner: ebs.csi.aws.com
+    volumeBindingMode: WaitForFirstConsumer
+    reclaimPolicy: Retain
+    ```
+  
 - **Static Volume을 사용할 경우,** Persistent Volume을 생성합니다.  
   ```bash
   cd ~/environment/jenkins-on-eks
   kubectl apply -f jenkins/jenkins.pv.yaml
   ```
+  
   - jenkins.pv.yaml (***volumeHandle를 여러분의 EBS VolumeId로 변경해야 합니다.***)
     ```yaml
     apiVersion: v1
@@ -177,6 +185,7 @@ Jenkins를 위한 Deployment, Service, Ingress를 배포합니다.
   cd ~/environment/jenkins-on-eks
   kubectl -n jenkins apply -f jenkins/jenkins.pvc.yaml
   ```
+  
   - jenkins.pvc.yaml
     ```yaml
     apiVersion: v1
@@ -191,11 +200,13 @@ Jenkins를 위한 Deployment, Service, Ingress를 배포합니다.
         requests:
           storage: 50Gi
     ```
+    
 - Jenkins Deployment를 배포합니다.
   ```bash
   cd ~/environment/jenkins-on-eks
   kubectl -n jenkins apply -f jenkins/jenkins.deployment.yaml
   ```
+  
   - jenkins.deployment.yaml
     ```yaml
     apiVersion: extensions/v1beta1
@@ -250,11 +261,13 @@ Jenkins를 위한 Deployment, Service, Ingress를 배포합니다.
             persistentVolumeClaim:
               claimName: jenkins-claim  
     ```
+    
 - Jenkins Service/Ingress를 배포합니다.
   ```bash
   cd ~/environment/jenkins-on-eks
   kubectl -n jenkins apply -f jenkins/jenkins.service.yaml
   ```
+  
   - jenkins.service.yaml
     ```yaml
     ---
@@ -300,6 +313,7 @@ Jenkins를 위한 Deployment, Service, Ingress를 배포합니다.
                   serviceName: jenkins
                   servicePort: 80  
     ```
+    
 ---
 ### Table of Contents
 [Jenkins on Amazon EKS](README.md)
