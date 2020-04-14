@@ -138,7 +138,7 @@ Jenkins 사용자이름/패스워드를 설정하고, [Kubernetes 플러그인](
 
 ---
 ### Table of Contents
-[Jenkins on Amazon EKS](README.md)
+[Amazon EKS에서 Jenkins로 분산 빌드 환경 구성하기](README.md)
 1. [Jenkins 설치](100_install_jenkins.md)
 2. [Jenkins 설정](200_configure_jenkins.md)
 3. [빌드 작업 생성 및 실행](300_build_job_creation.md)
