@@ -161,4 +161,4 @@ Jenkins에서 GitHub와 DockerHub Credential을 설정합니다.
 [Jenkins on Amazon EKS](README.md)
 1. [Jenkins 설치](100_install_jenkins.md)
 2. [Jenkins 설정](200_configure_jenkins.md)
-3. [Build Job 생성](300_build_job_creation.md)
+3. [빌드 작업 생성 및 실행](300_build_job_creation.md)
