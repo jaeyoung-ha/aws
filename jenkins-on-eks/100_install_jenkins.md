@@ -6,14 +6,16 @@ EBS CSI Driver를 사용해서 Storage Class, Persistent Volume, Persistent Volu
 Jenkins를 위한 Deployment, Service, Ingress를 배포합니다.   
 
 - 본 실습에 필요한 파일들을 github repository에서 clone합니다.
+
   ```
   git clone https://github.com/openzon/jenkins-on-eks.git
   ```
 
 - 아래 링크의 가이드를 참조해서 EBS CSI Driver를 배포합니다.   
-  - [Amazon EBS CSI Driver 배포하기](https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/ebs-csi.html)
+  - [Amazon EBS CSI Driver 배포하기](https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/ebs-csi.html)  
 
 - Jenkins Namespace를 생성합니다.
+
   ```bash
   kubectl create namespace jenkins
   ```
@@ -186,6 +188,7 @@ Jenkins를 위한 Deployment, Service, Ingress를 배포합니다.
               values:
               - ap-northeast-2a   
     ```
+    
 - **Dynamic Volume을 사용할 경우,** ***이 단계를 건너뛰고 Persistent Volume Claim 생성 단계로 넘어갑니다.*** 
 
 - Persistent Volume Claim를 생성합니다.
