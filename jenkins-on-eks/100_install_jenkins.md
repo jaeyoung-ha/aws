@@ -26,88 +26,107 @@ Jenkins를 위한 Deployment, Service, Ingress를 배포합니다.
   cd ~/environment/jenkins-on-eks
   kubectl -n jenkins apply -f jenkins/jenkins.rbac.yaml
   ```
+  
   - jenkins.rbac.yaml
   
-    ```yaml
-    ---
-    apiVersion: v1
-    kind: ServiceAccount
-    metadata:
-      name: jenkins
-      
-    ---
-    kind: Role
-    apiVersion: rbac.authorization.k8s.io/v1
-    metadata:
-      name: jenkins
-    rules:
-    - apiGroups: [""]
-      resources: ["pods"]
-      verbs: ["create","delete","get","list","patch","update","watch"]
-    - apiGroups: ["extensions", "apps"]
-      resources: ["deployments"]
-      verbs: ["create","delete","get","list","patch","update","watch"]
-    - apiGroups: [""]
-      resources: ["pods/exec"]
-      verbs: ["create","delete","get","list","patch","update","watch"]
-    - apiGroups: [""]
-      resources: ["pods/log"]
-      verbs: ["get","list","watch"]
-    - apiGroups: [""]
-      resources: ["secrets"]
-      verbs: ["get"]
-
-    ---
-    apiVersion: rbac.authorization.k8s.io/v1
-    kind: RoleBinding
-    metadata:
-      name: jenkins
-    roleRef:
-      apiGroup: rbac.authorization.k8s.io
-      kind: Role
-      name: jenkins
-    subjects:
-    - kind: ServiceAccount
-      name: jenkins
-      namespace: jenkins
-
-    ---
-    kind: ClusterRole
-    apiVersion: rbac.authorization.k8s.io/v1
-    metadata:
-      name: jenkins
-    rules:
-    - apiGroups: [""]
-      resources: ["pods"]
-      verbs: ["create","delete","get","list","patch","update","watch"]
-    - apiGroups: ["extensions", "apps"]
-      resources: ["deployments"]
-      verbs: ["create","delete","get","list","patch","update","watch"]
-    - apiGroups: [""]
-      resources: ["pods/exec"]
-      verbs: ["create","delete","get","list","patch","update","watch"]
-    - apiGroups: [""]
-      resources: ["pods/log"]
-      verbs: ["get","list","watch"]
-    - apiGroups: [""]
-      resources: ["secrets"]
-      verbs: ["get"]
-
-    ---
-    apiVersion: rbac.authorization.k8s.io/v1
-    kind: ClusterRoleBinding
-    metadata:
-      name: jenkins
-    roleRef:
-      apiGroup: rbac.authorization.k8s.io
-      kind: ClusterRole
-      name: jenkins
-    subjects:
-    - kind: ServiceAccount
-      name: jenkins
-      namespace: jenkins  
-    ```
+    - Service Account
     
+      ```yaml
+      ---
+      apiVersion: v1
+      kind: ServiceAccount
+      metadata:
+        name: jenkins
+      ```
+    
+    - Role
+    
+      ```yaml
+      ---
+      kind: Role
+      apiVersion: rbac.authorization.k8s.io/v1
+      metadata:
+        name: jenkins
+      rules:
+      - apiGroups: [""]
+        resources: ["pods"]
+        verbs: ["create","delete","get","list","patch","update","watch"]
+      - apiGroups: ["extensions", "apps"]
+        resources: ["deployments"]
+        verbs: ["create","delete","get","list","patch","update","watch"]
+      - apiGroups: [""]
+        resources: ["pods/exec"]
+        verbs: ["create","delete","get","list","patch","update","watch"]
+      - apiGroups: [""]
+        resources: ["pods/log"]
+        verbs: ["get","list","watch"]
+      - apiGroups: [""]
+        resources: ["secrets"]
+        verbs: ["get"]
+      ```
+    
+    - RoleBinding
+    
+      ```yaml
+      ---
+      apiVersion: rbac.authorization.k8s.io/v1
+      kind: RoleBinding
+      metadata:
+        name: jenkins
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: Role
+        name: jenkins
+      subjects:
+      - kind: ServiceAccount
+        name: jenkins
+        namespace: jenkins
+      ```
+    
+    - ClusterRole
+    
+      ```yaml
+      ---
+      kind: ClusterRole
+      apiVersion: rbac.authorization.k8s.io/v1
+      metadata:
+        name: jenkins
+      rules:
+      - apiGroups: [""]
+        resources: ["pods"]
+        verbs: ["create","delete","get","list","patch","update","watch"]
+      - apiGroups: ["extensions", "apps"]
+        resources: ["deployments"]
+        verbs: ["create","delete","get","list","patch","update","watch"]
+      - apiGroups: [""]
+        resources: ["pods/exec"]
+        verbs: ["create","delete","get","list","patch","update","watch"]
+      - apiGroups: [""]
+        resources: ["pods/log"]
+        verbs: ["get","list","watch"]
+      - apiGroups: [""]
+        resources: ["secrets"]
+        verbs: ["get"]
+      ```
+    
+    - ClusterRoleBinding
+    
+      ```yaml
+      ---
+      apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      metadata:
+        name: jenkins
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: ClusterRole
+        name: jenkins
+      subjects:
+      - kind: ServiceAccount
+        name: jenkins
+        namespace: jenkins  
+      ```
+
 - **Static Volume을 사용할 경우,** EBS Volume을 생성합니다. 또는 사용할 기존 Volume을 선택합니다.
 
   ```bash
@@ -286,50 +305,56 @@ Jenkins를 위한 Deployment, Service, Ingress를 배포합니다.
   
   - jenkins.service.yaml
   
-    ```yaml
-    ---
-    apiVersion: v1
-    kind: Service
-    metadata:
-      name: jenkins
-      labels:
-        app: jenkins
-    spec:
-      type: NodePort
-      ports:
-        - name: ui
-          port: 8080
-          targetPort: 8080
-          protocol: TCP
-        - name: slave
-          port: 50000
-          protocol: TCP
-        - name: http
-          port: 80
-          targetPort: 8080
-      selector:
-        app: jenkins
-
-    ---
-    apiVersion: extensions/v1beta1
-    kind: Ingress
-    metadata:
-      name: jenkins
-      namespace: jenkins
-      annotations:
-        kubernetes.io/ingress.class: alb
-        alb.ingress.kubernetes.io/scheme: internet-facing
-      labels:
-        app: jenkins
-    spec:
-      rules:
-        - http:
-            paths:
-              - path: /*
-                backend:
-                  serviceName: jenkins
-                  servicePort: 80  
-    ```
+    - Service
+    
+      ```yaml
+      ---
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: jenkins
+        labels:
+          app: jenkins
+      spec:
+        type: NodePort
+        ports:
+          - name: ui
+            port: 8080
+            targetPort: 8080
+            protocol: TCP
+          - name: slave
+            port: 50000
+            protocol: TCP
+          - name: http
+            port: 80
+            targetPort: 8080
+        selector:
+          app: jenkins
+      ```
+    
+    - Ingress
+    
+      ```yaml
+        ---
+        apiVersion: extensions/v1beta1
+        kind: Ingress
+        metadata:
+          name: jenkins
+          namespace: jenkins
+          annotations:
+            kubernetes.io/ingress.class: alb
+            alb.ingress.kubernetes.io/scheme: internet-facing
+          labels:
+            app: jenkins
+        spec:
+          rules:
+            - http:
+                paths:
+                  - path: /*
+                    backend:
+                      serviceName: jenkins
+                      servicePort: 80  
+      ```
     
 ---
 ### Table of Contents
