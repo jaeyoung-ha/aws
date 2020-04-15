@@ -107,12 +107,12 @@ Jenkins에서 GitHub와 DockerHub Credential을 설정합니다.
   kubectl apply -f jenkins/hello-spring-boot.yaml
   ```
   - Pod 배포 상태를 확인합니다.
-  ```
+  ```bash
   kubectl get pod
   ```
   
   - Ingress URL을 확인합니다.
-  ```
+  ```bash
   kubectl get ingress
   ```
   
@@ -127,7 +127,7 @@ Jenkins에서 GitHub와 DockerHub Credential을 설정합니다.
     <img width="1350" alt="Screen Shot 2020-04-14 at 10 26 38 PM" src="https://user-images.githubusercontent.com/6407492/79230151-22627880-7e9f-11ea-816a-7a75b1fe1aa7.png">
 
   - Pod 배포 상태와 Name을 확인합니다.
-    ```
+    ```bash
     kubectl get pod
     ```
   
@@ -135,12 +135,66 @@ Jenkins에서 GitHub와 DockerHub Credential을 설정합니다.
     - Container Image Tag가 Jenkins의 Build Number와 같은지 확인합니다.
     - 아래 커맨드의 **Pod Name을 여러분의 실제 Pod Name으로 변경해야 합니다.**  
     
-      ```
+      ```bash
       kubectl describe pod hello-spring-boot-f98fdddb-xtnm4
       ```
       
       <img width="795" alt="Screen Shot 2020-04-14 at 10 27 26 PM" src="https://user-images.githubusercontent.com/6407492/79230155-242c3c00-7e9f-11ea-8be0-4af42bcabef5.png">  
       
+- **빌드 시간 단축을 위한 추가 작업**
+
+  - Jenkins Master Pod의 Name을 조회해서 Container Shell 안쪽으로 진입합니다.
+  
+  ```bash
+  kubectl get pod -n jenkins
+  ```
+  
+  - **아래 커맨드에서 여러분의 Jenkins Master Pod Name으로 변경해야 해야 합니다.**
+  
+  ```
+  kubectl -n jenkins exec -it jenkins-5576f89644-cfcb4 -- /bin/bash
+  ```
+  
+  <img width="756" alt="Screen Shot 2020-04-15 at 1 33 20 PM" src="https://user-images.githubusercontent.com/6407492/79300825-d3f6bd80-7f22-11ea-9100-9f04606aa398.png">   
+  
+  - Jenkins Master Pod에서 미리 올려놓은 Maven 의존성 라이브러리들을 다운로드하고 압축을 풉니다.  
+  
+  ```
+  cd /var/jenkins_home
+  wget https://dykqnb76krm40.cloudfront.net/m2.zip
+  ```
+  
+  ```
+  unzip m2.zip
+  ``` 
+  
+  <img width="1213" alt="Screen Shot 2020-04-15 at 1 40 08 PM" src="https://user-images.githubusercontent.com/6407492/79300895-06081f80-7f23-11ea-8273-fd47da968c41.png">     
+
+
+  - 다운로드 받은 Maven 의존성 라이브러리들을 확인합니다.
+  
+  ```
+  cd .m2/repository/
+  ls -al
+  ```
+  
+  <img width="822" alt="Screen Shot 2020-04-15 at 1 40 48 PM" src="https://user-images.githubusercontent.com/6407492/79301100-98102800-7f23-11ea-8214-ffb40d4acf3c.png">   
+
+  - Jenkins Deployment YAML 파일을 확인해 보시면, **/var/jenkins_home**이 PVC(Persistent Volume Claim) **jenkins-claim**이 마운트된 경로임을 확인할 수 있습니다.    
+    
+  - 빌드 작업은 Jenkis Slave에서 실행되기 때문에, Maven 의존성 라이브러리들을 가지고 있는, PVC **jenkins-claim**을 Jenkins Slave도 Binding할 수 있게 설정합니다. 
+  
+  - **Manage Jenkins** > **Manage Nodes and Clouds** > **Configure Cloud** > **Pod Template** 에 **Persistent Volume Claim**을 아래와 같이 추가합니다.
+  
+    - Claim Name : **jenkins-claim**
+    - Mount Path : **/var/jenkins_home**
+  
+  ![Screen Shot 2020-04-15 at 2 02 25 PM](https://user-images.githubusercontent.com/6407492/79301398-7d8a7e80-7f24-11ea-8f6f-0adc21f4b2e8.png)
+
+  - 위와 같이 설정하면, Maven 빌드 중에 Maven 의존성 라이브러리에 대한 다운로드 없이 **Local Repository를 참조해서 빠르게 빌드할 수 있습니다.**
+  
+    - Sample Application(Hello Spring Boot)의 경우, 기존 2분 30초 걸리던 빌드/배포 작업이 40초로 단축되었습니다.  
+    
   
 - 리소스 삭제
 
