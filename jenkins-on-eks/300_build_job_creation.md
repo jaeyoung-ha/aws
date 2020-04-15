@@ -1,4 +1,4 @@
-### 3.빌드 작업 생성
+### 3.빌드 작업 생성 및 실행  
 
 빌드 작업을 생성하고 Amazon EKS에서 빌드 작업을 분산 실행합니다.   
 빌드 작업을 구성하기 전에, GitHub Private Repository를 구성합니다.   
@@ -11,7 +11,7 @@ Jenkins에서 GitHub와 DockerHub Credential을 설정합니다.
 
 ![Screen Shot 2020-04-14 at 5 18 07 PM](https://user-images.githubusercontent.com/6407492/79202056-f978be00-7e73-11ea-99d5-94ad53f0af4e.png)  
  
-  - Repository 생성이 완료되면, 앞에서 clone했던 파일들을 조금 전에 생성한 Repository로 commit & push합니다.
+  - Repository 생성이 완료되면, 앞에서 clone했던 파일들을 생성한 Repository로 commit & push합니다.
     - 아래 커맨드 중에서 **@username@과 @repository@는 여러분의 것으로 변경해야 합니다.**  
     
       ```
@@ -49,7 +49,7 @@ Jenkins에서 GitHub와 DockerHub Credential을 설정합니다.
           - Repository URL : **https://github.com/@username@/@repository@**
           - Credential : **조금 전에 생성한 GitHub Credential을 선택합니다.** 
       - Script Path : **jenkins/JenkinsFile**   
-        (조금 전에 생성한 GitHub Repository에 jenkins 디렉토리에 JenkinsFile이 있는지 확인합니다.) 
+        (생성한 GitHub Repository에 jenkins/JenkinsFile이 있는지 확인합니다.) 
     
 <img width="888" alt="Screen Shot 2020-04-12 at 8 18 03 PM" src="https://user-images.githubusercontent.com/6407492/79067507-be9f4a80-7cfa-11ea-97f4-7464dd9f37c5.png">  
 
