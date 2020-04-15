@@ -3,7 +3,8 @@
 빌드 작업을 생성하고 Amazon EKS에서 빌드 작업을 분산 실행합니다.   
 빌드 작업을 구성하기 전에, GitHub Private Repository를 구성합니다.   
 Jenkins에서 GitHub와 DockerHub Credential을 설정합니다.    
-빌드 작업(git clone -> maven build -> docker build & push -> kubectl set image)을 생성하고 실행합니다.
+빌드 작업(git clone -> maven build -> docker build & push -> kubectl set image)을 생성하고 실행합니다.    
+빌드 시간 단축을 위해서 PVC(Persistent Volume Claim)을 사용해서 Maven 의존성 라이브러리를 Jenkins Slave에 저장합니다.   
 
 - GitHub **Private** Repository 생성
   - Repository 이름은 **jenkins-on-eks**로 입력합니다.   
