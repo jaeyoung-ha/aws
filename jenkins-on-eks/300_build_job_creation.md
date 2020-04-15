@@ -194,9 +194,10 @@ Jenkins에서 GitHub와 DockerHub Credential을 설정합니다.
   - 위와 같이 설정하면, Maven 빌드 중에 Maven 의존성 라이브러리에 대한 다운로드 없이 **Local Repository를 참조해서 빠르게 빌드할 수 있습니다.**
   
     - Sample Application(Hello Spring Boot)의 경우, 기존 2분 30초 걸리던 빌드/배포 작업이 40초로 단축되었습니다.  
-    - 위 빌드 시간 단축을 위한 작업 중, **Jenkins Slave에 PVC만 추가**해도 2번째 빌드부터는 Local Repository를 참조해서 빠르게 빌드할 수 있습니다.
+    - 위 빌드 시간 단축을 위한 작업 중, **Jenkins Slave에 PVC만 추가**해도 2번째 빌드부터는 Local Repository를 참조해서 빠르게 빌드할 수 있습니다.   
     
-  
+    
+    
 - 리소스 삭제
 
   - Jenkins 네임스페이스 삭제
